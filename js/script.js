@@ -36,6 +36,16 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    //photo slider
+
+    let slidePhotos = document.querySelector('.slider-item'),
+        sliderDots = document.querySelector('.dot'),
+        arrowLeft = document.querySelector('.arrow-left'),
+        arrowRight = document.querySelector('.arrow-right');
+
+     
+
+
     //Timer
 
     let deadline = '2020-04-16';
@@ -138,8 +148,40 @@ window.addEventListener('DOMContentLoaded', function () {
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
+        form.appendChild(statusMessage);
+
+        let request = new XMLHttpRequest();
+        request.open('POST', 'server.php');
+        // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); <== for PHP server
+        request.setRequestHeader('Content-Type', 'application/json; charset=utf-8'); // <== for Node js (JSON format)
+
+        let formData = new FormData(form);
+
+        let obj = {}; // for JSON
+        formData.forEach(function(value, key) {  //fromData ==>> normal readed object for JSON
+            obj[key] = value;
+        });
+        let json = JSON.stringify(obj);
+
+        // request.send(formData);  // <==== for PHP
+        request.send(json); //for JSON node js server
+
+        request.addEventListener('readystatechange', function () {
+            if (request.readyState < 4) {
+                statusMessage.innerHTML = message.loading;
+            } else if (request.readyState === 4 && request.status == 200) {
+                statusMessage.innerHTML = message.success;
+            } else {
+                statusMessage.innerHTML = message.failure;
+            }
+        });
+
+        for (let i = 0; i < input.length; i++) {
+            input[i].value = '';
+        }
     });
 
-    
+
+
 
 });
