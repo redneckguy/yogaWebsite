@@ -27,14 +27,15 @@ window.addEventListener('DOMContentLoaded', function () {
             // let nameOfElemConstr = ['height', 'width', 'bg', 'fontSize', 'textAlign'];
             // let elemQntConstr = [this.height, this.width, this.bg, this.fontSize, this.textAlign];
 
-            
+            //let cssTextElem = [];
             // for (let i = 0; i < nameOfElemConstr.length, i < elemQntConstr.length; i++) {
-            // // div.style.cssText = `${nameOfElemConstr[i]}: ${elemQntConstr[i]};`;   
-            //}          
+            // // cssTextElem = `${nameOfElemConstr[i]}: ${elemQntConstr[i]};`;   
+            //} 
+            //div.style.cssText = (...cssTextElem);
         }
     }
 
-    const newDiv = new Options(200, 200, '#ccc', 54, 'center');      
-    newDiv.createDiv('this is a new div with text');
+    // const newDiv = new Options(200, 200, '#ccc', 54, 'center');      
+    // newDiv.createDiv('this is a new div with text');
 
 });
