@@ -56,10 +56,10 @@ window.addEventListener('DOMContentLoaded', function () {
         }
 
         return {
-            'total' : t,
-            'hours' : addZeros(hours),
-            'minutes' : addZeros(minutes),
-            'seconds' : addZeros(seconds),
+            'total': t,
+            'hours': addZeros(hours),
+            'minutes': addZeros(minutes),
+            'seconds': addZeros(seconds),
         };
     }
 
@@ -74,8 +74,8 @@ window.addEventListener('DOMContentLoaded', function () {
             let t = getTimeRemaining(endtime);
             hours.textContent = t.hours;
             minutes.textContent = t.minutes;
-            seconds.textContent = t.seconds;  
-            
+            seconds.textContent = t.seconds;
+
             if (t.total <= 0) {
                 clearInterval(timeInterval);
                 hours.textContent = '00';
@@ -83,9 +83,9 @@ window.addEventListener('DOMContentLoaded', function () {
                 seconds.textContent = '00';
             }
         }
-                
+
     }
-        
+
     setClock('timer', deadline);
 
     //Modal
@@ -93,7 +93,7 @@ window.addEventListener('DOMContentLoaded', function () {
     let more = document.querySelector('.more'),
         overlay = document.querySelector('.overlay'),
         close = document.querySelector('.popup-close');
-    
+
     more.addEventListener('click', () => {
         overlay.style.display = 'block';
         this.classList.add('more-splash');
@@ -106,20 +106,40 @@ window.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflow = '';
     });
 
-    window.addEventListener('keyup', (event)=> {
-        if (event.code == 'Escape'){
+    window.addEventListener('keyup', (event) => {
+        if (event.code == 'Escape') {
             overlay.style.display = 'none';
             more.classList.remove('more-splash');
             document.body.style.overflow = '';
-        }        
+        }
     });
 
     let descriptBtn = document.querySelectorAll('.description-btn');
 
     descriptBtn.forEach((item) => {
-        item.addEventListener('click', function(){
+        item.addEventListener('click', function () {
             overlay.style.display = 'block';
         });
     });
+
+    //Form
+
+    let message = {
+        loading: 'Loading...',
+        success: 'Thank you! We will contact you back!',
+        failure: 'Something went wrong...',
+    };
+
+    let form = document.querySelector('.main-form'),
+        input = form.getElementsByTagName('input'),
+        statusMessage = document.createElement('div');
+
+    statusMessage.classList.add('status');
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+    });
+
+    
 
 });
