@@ -41,17 +41,6 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    //photo slider==============================================================
-
-    let slidePhotos = document.querySelector('.slider-item'),
-        sliderDots = document.querySelector('.dot'),
-        arrowLeft = document.querySelector('.arrow-left'),
-        arrowRight = document.querySelector('.arrow-right');
-
-     
-
-
-
     //Timer======================================================================
 
     let deadline = '2020-04-16';
@@ -110,7 +99,7 @@ window.addEventListener('DOMContentLoaded', function () {
     setClock('timer', deadline);
 
     //Modal=========================================================================
-    
+
     //getting elements
     let more = document.querySelector('.more'),
         overlay = document.querySelector('.overlay'),
@@ -163,13 +152,13 @@ window.addEventListener('DOMContentLoaded', function () {
         input = form.getElementsByTagName('input'),
         //----------------------------------------------------
         statusMessage = document.createElement('div'); //<<==== universal message
-        //-----------------------------------------------------
+    //-----------------------------------------------------
 
     //adding style for status message window
     statusMessage.classList.add('status');
 
 
-    function sendForm(elem, inputFields){
+    function sendForm(elem, inputFields) {
         elem.addEventListener('submit', function (event) {
 
             event.preventDefault();
@@ -182,7 +171,7 @@ window.addEventListener('DOMContentLoaded', function () {
             request.setRequestHeader('Content-Type', 'application/json; charset=utf-8'); // <== for Node js (JSON format)
 
             let obj = {}; // for JSON
-            formData.forEach(function(value, key) {  //fromData ==>> normal readed object for JSON
+            formData.forEach(function (value, key) { //fromData ==>> normal readed object for JSON
                 obj[key] = value;
             });
             let json = JSON.stringify(obj);
@@ -210,10 +199,59 @@ window.addEventListener('DOMContentLoaded', function () {
 
     sendForm(form, input);
 
-    //contact form ==================================================================
+    //contact form =============================================================
     let contactForm = document.querySelector('#form'),
-        inputs = contactForm.getElementsByTagName('input');       
+        inputs = contactForm.getElementsByTagName('input');
 
     sendForm(contactForm, inputs);
 
+
+    //PHOTO SLIDER==============================================================
+
+    let slideIndex = 1, //параметр текущего слайда
+        slides = document.querySelectorAll('.slider-item'),
+        prev = document.querySelector('.prev'),
+        next = document.querySelector('.next'),
+        dotsWrap = document.querySelector('.slider-dots'),
+        dots = document.querySelectorAll('.dot');
+
+    showSlides(slideIndex);
+
+    function showSlides(n) {
+
+        if (n > slides.length) {
+            slideIndex = 1;
+        }
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+
+        slides.forEach((item) => item.style.display = 'none');
+        dots.forEach((item) => item.classList.remove('dot-active'));
+        slides[slideIndex - 1].style.display = 'block';
+        dots[slideIndex - 1].classList.add('dot-active');
+    }
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    prev.addEventListener('click', function() {
+        plusSlides(-1);        
+    });
+
+    next.addEventListener('click', function() {
+        plusSlides(1);        
+    });
+
+    dotsWrap.addEventListener('click', function(event) {
+        for (let i = 0; i < dots.length + 1; i++) {
+            if (event.target.classList.contains('dot') && event.target == dots[i-1]) {
+                currentSlide(i);
+            }
+        }
+    });
 });
